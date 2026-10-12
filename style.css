@@ -1,0 +1,1028 @@
+/* style.css - Luxury Romantic Glassmorphism Design System for Anas & Aura */
+
+:root {
+  --bg-deep-space: #030008;
+  --bg-space-dark: #070114;
+  --neon-pink: #ff2d75;
+  --neon-pink-glow: rgba(255, 45, 117, 0.6);
+  --hot-pink: #ff007f;
+  --magenta: #e0218a;
+  --soft-violet: #b366ff;
+  --deep-violet: #7928ca;
+  --starlight-white: #ffffff;
+  --warm-blush: #ffd1dc;
+  --gold-accent: #ffd700;
+
+  /* Glassmorphism Tokens */
+  --glass-bg: rgba(18, 5, 28, 0.72);
+  --glass-bg-hover: rgba(26, 8, 40, 0.85);
+  --glass-card: rgba(14, 3, 24, 0.82);
+  --glass-border: rgba(255, 105, 180, 0.28);
+  --glass-border-bright: rgba(255, 45, 117, 0.65);
+  --glass-shadow: 0 16px 40px rgba(0, 0, 0, 0.8), 0 0 24px rgba(255, 45, 117, 0.22);
+  --glass-shadow-glow: 0 0 35px rgba(255, 45, 117, 0.45), 0 12px 30px rgba(0, 0, 0, 0.9);
+
+  /* Typography */
+  --font-primary: 'Outfit', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+  --font-serif: 'Playfair Display', Georgia, serif;
+}
+
+*, *::before, *::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  scrollbar-width: none !important;
+  -ms-overflow-style: none !important;
+}
+
+/* Hide all browser-native scrollbars completely to preserve deep space aesthetics */
+::-webkit-scrollbar {
+  width: 0px !important;
+  height: 0px !important;
+  display: none !important;
+  background: transparent !important;
+}
+
+::-webkit-scrollbar-track,
+::-webkit-scrollbar-thumb,
+::-webkit-scrollbar-corner {
+  background: transparent !important;
+  display: none !important;
+}
+
+html, body {
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+  background-color: var(--bg-deep-space);
+  color: var(--starlight-white);
+  font-family: var(--font-primary);
+  direction: ltr;
+  text-align: left;
+  user-select: none;
+  touch-action: manipulation;
+  scrollbar-width: none !important;
+  -ms-overflow-style: none !important;
+}
+
+/* 3D WebGL Canvas Container */
+#webgl-canvas-container {
+  position: fixed;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 1;
+}
+
+canvas {
+  display: block;
+}
+
+/* Subtle Vignette & Cosmic Gradients Background Overlay */
+.cosmic-vignette {
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  z-index: 2;
+  background: radial-gradient(circle at 50% 50%, transparent 40%, rgba(3, 0, 8, 0.85) 100%),
+              radial-gradient(circle at 80% 20%, rgba(138, 43, 226, 0.08) 0%, transparent 50%),
+              radial-gradient(circle at 20% 80%, rgba(255, 45, 117, 0.08) 0%, transparent 50%);
+}
+
+/* ==========================================================================
+   1. LANDING SCREEN (WELCOME MODAL)
+   ========================================================================== */
+#welcome-screen {
+  position: fixed;
+  inset: 0;
+  z-index: 100;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 16px;
+  background: radial-gradient(circle at center, rgba(16, 3, 28, 0.85) 0%, rgba(3, 0, 8, 0.96) 100%);
+  backdrop-filter: blur(28px);
+  -webkit-backdrop-filter: blur(28px);
+  transition: opacity 0.9s cubic-bezier(0.16, 1, 0.3, 1), transform 0.9s cubic-bezier(0.16, 1, 0.3, 1);
+  overflow: hidden;
+}
+
+#welcome-screen.fade-out {
+  opacity: 0;
+  transform: scale(1.08);
+  pointer-events: none;
+}
+
+.welcome-card {
+  position: relative;
+  max-width: 580px;
+  width: 100%;
+  max-height: 94vh;
+  overflow: hidden !important;
+  padding: clamp(26px, 4vh, 42px) clamp(20px, 4vw, 36px);
+  border-radius: 32px;
+  background: var(--glass-card);
+  border: 1px solid var(--glass-border);
+  box-shadow: var(--glass-shadow-glow);
+  text-align: center;
+  backdrop-filter: blur(30px);
+  -webkit-backdrop-filter: blur(30px);
+  animation: cardEntrance 1.2s cubic-bezier(0.16, 1, 0.3, 1) both;
+  scrollbar-width: none !important;
+  -ms-overflow-style: none !important;
+}
+
+.welcome-card::before {
+  content: '';
+  position: absolute;
+  top: -50%;
+  left: -50%;
+  width: 200%;
+  height: 200%;
+  background: conic-gradient(transparent, transparent, var(--neon-pink), transparent, var(--soft-violet), transparent);
+  animation: rotateGlow 12s linear infinite;
+  opacity: 0.35;
+  pointer-events: none;
+}
+
+.welcome-card-content {
+  position: relative;
+  z-index: 2;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.welcome-heart-icon {
+  width: 76px;
+  height: 76px;
+  margin-bottom: 20px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: radial-gradient(circle, rgba(255, 45, 117, 0.28) 0%, transparent 70%);
+  border-radius: 50%;
+  animation: floatHeart 2.4s ease-in-out infinite;
+}
+
+.welcome-heart-svg {
+  width: 54px;
+  height: 54px;
+  filter: drop-shadow(0 0 16px var(--neon-pink));
+}
+
+.welcome-tag {
+  display: inline-block;
+  padding: 6px 20px;
+  margin-bottom: 14px;
+  border-radius: 50px;
+  font-size: clamp(0.75rem, 2.5vw, 0.88rem);
+  font-weight: 600;
+  letter-spacing: 2px;
+  background: rgba(255, 45, 117, 0.12);
+  border: 1px solid rgba(255, 45, 117, 0.38);
+  color: var(--warm-blush);
+}
+
+.welcome-title {
+  font-size: clamp(1.9rem, 5.5vw, 2.8rem);
+  font-weight: 800;
+  line-height: 1.25;
+  margin-bottom: 16px;
+  background: linear-gradient(135deg, #ffffff 10%, #ffd1dc 40%, #ff2d75 75%, #b366ff 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  filter: drop-shadow(0 0 20px rgba(255, 45, 117, 0.45));
+}
+
+.welcome-subtitle {
+  font-size: clamp(0.92rem, 2.5vw, 1.05rem);
+  line-height: 1.75;
+  color: rgba(255, 255, 255, 0.9);
+  margin-bottom: 28px;
+  font-weight: 400;
+  max-width: 500px;
+}
+
+.btn-enter-universe {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 12px;
+  padding: 16px 42px;
+  min-height: 54px;
+  font-size: clamp(1.1rem, 3vw, 1.25rem);
+  font-weight: 700;
+  color: #ffffff;
+  background: linear-gradient(135deg, var(--neon-pink) 0%, var(--magenta) 60%, var(--deep-violet) 100%);
+  border: 1px solid rgba(255, 255, 255, 0.5);
+  border-radius: 50px;
+  cursor: pointer;
+  box-shadow: 0 0 28px rgba(255, 45, 117, 0.65), 0 8px 24px rgba(0, 0, 0, 0.6);
+  transition: all 0.35s cubic-bezier(0.16, 1, 0.3, 1);
+  overflow: hidden;
+}
+
+.btn-enter-universe:hover {
+  transform: translateY(-3px) scale(1.04);
+  box-shadow: 0 0 45px rgba(255, 45, 117, 0.9), 0 12px 32px rgba(0, 0, 0, 0.8);
+  border-color: #ffffff;
+}
+
+.btn-enter-universe:active {
+  transform: translateY(1px) scale(0.98);
+}
+
+.btn-enter-universe .btn-glow-pulse {
+  position: absolute;
+  inset: 0;
+  border-radius: 50px;
+  background: radial-gradient(circle, rgba(255, 255, 255, 0.4) 0%, transparent 60%);
+  animation: pulseButton 2s infinite;
+  pointer-events: none;
+}
+
+.welcome-hint {
+  margin-top: 18px;
+  font-size: 0.82rem;
+  color: rgba(255, 255, 255, 0.6);
+}
+
+/* ==========================================================================
+   2. HUD & NAVIGATION INTERFACE (TOP BAR & BOTTOM DOCK)
+   ========================================================================== */
+#hud-container {
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  z-index: 20;
+  opacity: 0;
+  transition: opacity 0.8s ease;
+}
+
+#hud-container.visible {
+  opacity: 1;
+}
+
+/* Top Bar */
+.hud-top-bar {
+  position: absolute;
+  top: max(16px, env(safe-area-inset-top));
+  left: max(16px, env(safe-area-inset-left));
+  right: max(16px, env(safe-area-inset-right));
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  pointer-events: auto;
+  gap: 10px;
+}
+
+.hud-brand {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 8px 18px;
+  border-radius: 50px;
+  background: var(--glass-bg);
+  border: 1px solid var(--glass-border);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  box-shadow: var(--glass-shadow);
+}
+
+.hud-brand-heart {
+  width: 20px;
+  height: 20px;
+  fill: var(--neon-pink);
+  animation: pulseBeat 1.25s infinite;
+  filter: drop-shadow(0 0 8px var(--neon-pink));
+  flex-shrink: 0;
+}
+
+.hud-brand-title {
+  font-size: 0.98rem;
+  font-weight: 700;
+  background: linear-gradient(90deg, #ffffff, var(--warm-blush));
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  white-space: nowrap;
+}
+
+.hud-brand-badge {
+  font-size: 0.72rem;
+  padding: 3px 8px;
+  border-radius: 20px;
+  background: rgba(255, 45, 117, 0.2);
+  color: var(--neon-pink);
+  border: 1px solid rgba(255, 45, 117, 0.35);
+  font-weight: 600;
+  white-space: nowrap;
+}
+
+/* Right Music Player Card */
+.hud-music-player {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 8px 16px;
+  border-radius: 50px;
+  background: var(--glass-bg);
+  border: 1px solid var(--glass-border);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  box-shadow: var(--glass-shadow);
+  transition: all 0.3s ease;
+}
+
+.hud-music-player:hover {
+  border-color: var(--glass-border-bright);
+}
+
+.music-toggle-btn {
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+  border: none;
+  background: linear-gradient(135deg, var(--neon-pink), var(--deep-violet));
+  color: #fff;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  box-shadow: 0 0 12px rgba(255, 45, 117, 0.4);
+  transition: transform 0.25s ease;
+  flex-shrink: 0;
+}
+
+.music-toggle-btn:hover {
+  transform: scale(1.1);
+}
+
+.music-info {
+  display: flex;
+  flex-direction: column;
+  text-align: left;
+  min-width: 130px;
+}
+
+.music-title {
+  font-size: 0.85rem;
+  font-weight: 600;
+  color: #ffffff;
+  white-space: nowrap;
+}
+
+.music-sub {
+  font-size: 0.7rem;
+  color: var(--warm-blush);
+  opacity: 0.85;
+  white-space: nowrap;
+}
+
+.music-visualizer {
+  display: flex;
+  align-items: flex-end;
+  gap: 3px;
+  height: 18px;
+}
+
+.visualizer-bar {
+  width: 3px;
+  height: 4px;
+  background: var(--neon-pink);
+  border-radius: 3px;
+  transition: height 0.15s ease;
+}
+
+.visualizer-bar.active:nth-child(1) { animation: barHop 0.6s infinite alternate ease-in-out; }
+.visualizer-bar.active:nth-child(2) { animation: barHop 0.8s infinite 0.2s alternate ease-in-out; }
+.visualizer-bar.active:nth-child(3) { animation: barHop 0.5s infinite 0.4s alternate ease-in-out; }
+.visualizer-bar.active:nth-child(4) { animation: barHop 0.7s infinite 0.1s alternate ease-in-out; }
+
+.volume-slider-wrapper {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.volume-slider {
+  width: 55px;
+  accent-color: var(--neon-pink);
+  cursor: pointer;
+}
+
+.btn-upload-music-icon {
+  background: none;
+  border: none;
+  color: var(--warm-blush);
+  cursor: pointer;
+  font-size: 0.95rem;
+  padding: 4px;
+  border-radius: 6px;
+  transition: color 0.2s;
+}
+
+.btn-upload-music-icon:hover {
+  color: #ffffff;
+}
+
+/* ==========================================================================
+   BOTTOM FLOATING CONTROLS DOCK
+   ========================================================================== */
+.hud-bottom-dock {
+  position: absolute;
+  bottom: max(18px, env(safe-area-inset-bottom));
+  left: 50%;
+  transform: translateX(-50%);
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 8px 16px;
+  border-radius: 60px;
+  background: var(--glass-bg);
+  border: 1px solid var(--glass-border);
+  backdrop-filter: blur(24px);
+  -webkit-backdrop-filter: blur(24px);
+  box-shadow: var(--glass-shadow-glow);
+  pointer-events: auto;
+  max-width: 95vw;
+  overflow-x: auto;
+  -webkit-overflow-scrolling: touch;
+  scrollbar-width: none;
+}
+
+.hud-bottom-dock::-webkit-scrollbar {
+  display: none;
+}
+
+.dock-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 7px;
+  padding: 10px 16px;
+  border-radius: 40px;
+  border: 1px solid transparent;
+  background: rgba(255, 255, 255, 0.05);
+  color: rgba(255, 255, 255, 0.9);
+  font-size: 0.88rem;
+  font-weight: 600;
+  font-family: var(--font-primary);
+  cursor: pointer;
+  transition: all 0.28s cubic-bezier(0.16, 1, 0.3, 1);
+  white-space: nowrap;
+}
+
+.dock-btn:hover {
+  background: rgba(255, 45, 117, 0.18);
+  border-color: rgba(255, 45, 117, 0.4);
+  color: #ffffff;
+  transform: translateY(-2px);
+  box-shadow: 0 4px 14px rgba(255, 45, 117, 0.3);
+}
+
+.dock-btn:active {
+  transform: translateY(1px);
+}
+
+.dock-btn.active {
+  background: linear-gradient(135deg, rgba(255, 45, 117, 0.35), rgba(121, 40, 202, 0.35));
+  border-color: var(--neon-pink);
+  color: #ffffff;
+  box-shadow: 0 0 16px rgba(255, 45, 117, 0.45);
+}
+
+.dock-btn.special-wish {
+  background: linear-gradient(135deg, rgba(255, 215, 0, 0.2), rgba(255, 45, 117, 0.25));
+  border-color: rgba(255, 215, 0, 0.45);
+  color: #fff9e6;
+}
+
+.dock-btn.special-wish:hover {
+  background: linear-gradient(135deg, rgba(255, 215, 0, 0.35), rgba(255, 45, 117, 0.4));
+  box-shadow: 0 0 20px rgba(255, 215, 0, 0.5);
+}
+
+/* ==========================================================================
+   3. INTERACTIVE MEMORY POP-UP MODAL (ROMANTIC NOTE & PHOTO)
+   ========================================================================== */
+.modal-overlay {
+  position: fixed;
+  inset: 0;
+  z-index: 150;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 18px;
+  background: rgba(4, 0, 10, 0.82);
+  backdrop-filter: blur(24px);
+  -webkit-backdrop-filter: blur(24px);
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.45s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.modal-overlay.active {
+  opacity: 1;
+  pointer-events: auto;
+}
+
+.memory-card-modal {
+  position: relative;
+  width: 100%;
+  max-width: 660px;
+  max-height: 88vh;
+  overflow-y: auto;
+  -webkit-overflow-scrolling: touch;
+  border-radius: 28px;
+  background: var(--glass-card);
+  border: 1px solid var(--glass-border);
+  box-shadow: var(--glass-shadow-glow);
+  padding: clamp(22px, 4vw, 32px) clamp(18px, 4vw, 28px);
+  display: flex;
+  flex-direction: column;
+  gap: 18px;
+  transform: scale(0.92) translateY(20px);
+  transition: transform 0.45s cubic-bezier(0.16, 1, 0.3, 1);
+  scrollbar-width: thin;
+  scrollbar-color: var(--neon-pink) transparent;
+}
+
+.modal-overlay.active .memory-card-modal {
+  transform: scale(1) translateY(0);
+}
+
+.memory-modal-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  border-bottom: 1px solid rgba(255, 105, 180, 0.18);
+  padding-bottom: 12px;
+}
+
+.memory-tag-badge {
+  padding: 5px 14px;
+  border-radius: 30px;
+  font-size: 0.82rem;
+  background: rgba(255, 45, 117, 0.18);
+  border: 1px solid rgba(255, 45, 117, 0.35);
+  color: var(--warm-blush);
+  font-weight: 600;
+}
+
+.memory-date-badge {
+  font-size: 0.8rem;
+  color: rgba(255, 255, 255, 0.7);
+}
+
+.memory-title-wrap {
+  text-align: left;
+}
+
+.modal-title {
+  font-size: clamp(1.6rem, 4.5vw, 2rem);
+  font-weight: 800;
+  margin-bottom: 4px;
+  background: linear-gradient(135deg, #ffffff, var(--warm-blush), var(--neon-pink));
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+.modal-subtitle {
+  font-size: 0.95rem;
+  color: var(--soft-violet);
+  font-family: var(--font-serif);
+  font-style: italic;
+}
+
+.memory-art-frame {
+  position: relative;
+  width: 100%;
+  height: clamp(210px, 36vh, 290px);
+  border-radius: 20px;
+  overflow: hidden;
+  border: 1px solid var(--glass-border);
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.6);
+  background: #06010e;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.memory-svg {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.memory-custom-photo {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform 0.4s ease;
+}
+
+.memory-art-frame:hover .memory-custom-photo {
+  transform: scale(1.03);
+}
+
+.btn-photo-action {
+  position: absolute;
+  bottom: 12px;
+  right: 12px;
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 7px 16px;
+  border-radius: 30px;
+  font-size: 0.82rem;
+  font-weight: 600;
+  background: rgba(14, 3, 24, 0.78);
+  border: 1px solid rgba(255, 255, 255, 0.35);
+  color: #ffffff;
+  cursor: pointer;
+  backdrop-filter: blur(12px);
+  transition: all 0.25s ease;
+}
+
+.btn-photo-action:hover {
+  background: var(--neon-pink);
+  border-color: #ffffff;
+}
+
+.memory-note-box {
+  position: relative;
+  padding: clamp(16px, 3.5vw, 22px) clamp(16px, 3.5vw, 24px);
+  border-radius: 18px;
+  background: rgba(255, 45, 117, 0.06);
+  border-left: 4px solid var(--neon-pink);
+  border-top: 1px solid rgba(255, 105, 180, 0.15);
+  border-bottom: 1px solid rgba(255, 105, 180, 0.15);
+  border-right: 1px solid rgba(255, 105, 180, 0.15);
+}
+
+.memory-note-text {
+  font-size: clamp(0.92rem, 2.5vw, 1.05rem);
+  line-height: 1.85;
+  color: #fffafc;
+  font-weight: 400;
+}
+
+.modal-footer {
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  margin-top: 4px;
+}
+
+.btn-styled-back {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  padding: 12px 34px;
+  min-height: 48px;
+  border-radius: 50px;
+  font-size: 1.05rem;
+  font-weight: 700;
+  font-family: var(--font-primary);
+  color: #ffffff;
+  background: linear-gradient(135deg, var(--neon-pink) 0%, var(--deep-violet) 100%);
+  border: 1px solid rgba(255, 255, 255, 0.4);
+  box-shadow: 0 0 20px rgba(255, 45, 117, 0.45), 0 6px 18px rgba(0, 0, 0, 0.6);
+  cursor: pointer;
+  transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.btn-styled-back:hover {
+  transform: translateY(-2px) scale(1.03);
+  box-shadow: 0 0 32px rgba(255, 45, 117, 0.7);
+  border-color: #ffffff;
+}
+
+.btn-styled-back:active {
+  transform: translateY(1px);
+}
+
+/* ==========================================================================
+   4. ROMANTIC TEXT MODAL & WISH MODAL
+   ========================================================================== */
+.text-modal-card {
+  max-width: 520px;
+  text-align: center;
+  padding: clamp(28px, 5vw, 42px) clamp(20px, 4vw, 34px);
+}
+
+.text-modal-badge {
+  font-size: 0.88rem;
+  color: var(--warm-blush);
+  margin-bottom: 12px;
+  letter-spacing: 1px;
+}
+
+.text-modal-title {
+  font-size: clamp(1.8rem, 5vw, 2.3rem);
+  font-weight: 800;
+  margin-bottom: 18px;
+  color: var(--neon-pink);
+  text-shadow: 0 0 25px rgba(255, 45, 117, 0.6);
+}
+
+.text-modal-quote {
+  font-size: clamp(0.98rem, 2.8vw, 1.15rem);
+  line-height: 1.85;
+  color: #ffffff;
+  margin-bottom: 22px;
+}
+
+.text-modal-signature {
+  font-size: 0.95rem;
+  color: var(--soft-violet);
+  margin-bottom: 24px;
+  font-family: var(--font-serif);
+  font-style: italic;
+}
+
+/* Wish Modal */
+.wish-modal-card {
+  max-width: 540px;
+  text-align: left;
+  padding: clamp(24px, 4vw, 34px) clamp(20px, 4vw, 28px);
+}
+
+.wish-title {
+  font-size: clamp(1.4rem, 4vw, 1.7rem);
+  font-weight: 800;
+  color: var(--gold-accent);
+  margin-bottom: 8px;
+  text-shadow: 0 0 20px rgba(255, 215, 0, 0.4);
+}
+
+.wish-desc {
+  font-size: 0.92rem;
+  color: rgba(255, 255, 255, 0.85);
+  margin-bottom: 18px;
+  line-height: 1.6;
+}
+
+.wish-input-wrapper {
+  margin-bottom: 16px;
+}
+
+.wish-textarea {
+  width: 100%;
+  height: 90px;
+  padding: 12px 14px;
+  border-radius: 16px;
+  background: rgba(255, 255, 255, 0.06);
+  border: 1px solid rgba(255, 215, 0, 0.35);
+  color: #ffffff;
+  font-family: var(--font-primary);
+  font-size: 0.98rem;
+  resize: none;
+  outline: none;
+  transition: border-color 0.25s ease;
+}
+
+.wish-textarea:focus {
+  border-color: var(--gold-accent);
+  box-shadow: 0 0 16px rgba(255, 215, 0, 0.3);
+}
+
+.wish-actions {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+}
+
+.btn-launch-star {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 12px 26px;
+  min-height: 46px;
+  border-radius: 40px;
+  background: linear-gradient(135deg, #ffd700 0%, #ff2d75 100%);
+  color: #030008;
+  font-weight: 800;
+  font-size: 1rem;
+  border: none;
+  cursor: pointer;
+  box-shadow: 0 0 20px rgba(255, 215, 0, 0.5);
+  transition: all 0.25s ease;
+}
+
+.btn-launch-star:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 0 32px rgba(255, 215, 0, 0.8);
+}
+
+.wishes-history {
+  margin-top: 18px;
+  border-top: 1px solid rgba(255, 255, 255, 0.1);
+  padding-top: 12px;
+}
+
+.wishes-history-title {
+  font-size: 0.88rem;
+  color: var(--warm-blush);
+  margin-bottom: 8px;
+  font-weight: 600;
+}
+
+.wishes-list {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  max-height: 110px;
+  overflow-y: auto;
+}
+
+.wish-item {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 8px 12px;
+  border-radius: 12px;
+  background: rgba(255, 215, 0, 0.08);
+  font-size: 0.85rem;
+  color: #fff9e6;
+}
+
+/* ==========================================================================
+   5. HOVER TOOLTIP & TOAST
+   ========================================================================== */
+#hover-tooltip {
+  position: fixed;
+  pointer-events: none;
+  z-index: 120;
+  padding: 7px 15px;
+  border-radius: 30px;
+  background: rgba(18, 5, 28, 0.88);
+  border: 1px solid var(--neon-pink);
+  color: #ffffff;
+  font-size: 0.85rem;
+  font-weight: 700;
+  box-shadow: 0 0 16px rgba(255, 45, 117, 0.5);
+  backdrop-filter: blur(12px);
+  opacity: 0;
+  transform: translateY(6px);
+  transition: opacity 0.2s ease, transform 0.2s ease;
+}
+
+#hover-tooltip.visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.aura-toast {
+  position: fixed;
+  bottom: 86px;
+  left: 50%;
+  transform: translateX(-50%) translateY(20px);
+  z-index: 200;
+  padding: 10px 24px;
+  border-radius: 40px;
+  background: rgba(18, 5, 28, 0.94);
+  border: 1px solid var(--gold-accent);
+  color: #fff9e6;
+  font-size: 0.9rem;
+  font-weight: 600;
+  box-shadow: 0 0 24px rgba(255, 215, 0, 0.5);
+  backdrop-filter: blur(16px);
+  opacity: 0;
+  transition: all 0.35s cubic-bezier(0.16, 1, 0.3, 1);
+  pointer-events: none;
+  width: max-content;
+  max-width: 90vw;
+  text-align: center;
+}
+
+.aura-toast.visible {
+  opacity: 1;
+  transform: translateX(-50%) translateY(0);
+}
+
+/* Help Modal Instructions */
+.help-modal-card {
+  max-width: 540px;
+  padding: clamp(24px, 4vw, 34px) clamp(20px, 4vw, 28px);
+}
+
+.help-list {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  margin: 16px 0;
+}
+
+.help-item {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  font-size: 0.95rem;
+  color: rgba(255, 255, 255, 0.9);
+}
+
+.help-icon {
+  width: 36px;
+  height: 36px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 50%;
+  background: rgba(255, 45, 117, 0.15);
+  border: 1px solid rgba(255, 45, 117, 0.3);
+  font-size: 1.1rem;
+  flex-shrink: 0;
+}
+
+/* ==========================================================================
+   KEYFRAME ANIMATIONS
+   ========================================================================== */
+@keyframes cardEntrance {
+  0% { opacity: 0; transform: scale(0.88) translateY(30px); }
+  100% { opacity: 1; transform: scale(1) translateY(0); }
+}
+
+@keyframes rotateGlow {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}
+
+@keyframes floatHeart {
+  0%, 100% { transform: translateY(0) scale(1); }
+  50% { transform: translateY(-8px) scale(1.06); }
+}
+
+@keyframes pulseButton {
+  0% { opacity: 0.8; transform: scale(1); }
+  50% { opacity: 0; transform: scale(1.2); }
+  100% { opacity: 0; transform: scale(1.2); }
+}
+
+@keyframes pulseBeat {
+  0%, 100% { transform: scale(1); }
+  15% { transform: scale(1.25); }
+  30% { transform: scale(1); }
+  45% { transform: scale(1.15); }
+}
+
+@keyframes barHop {
+  0% { height: 4px; }
+  100% { height: 18px; }
+}
+
+/* ==========================================================================
+   RESPONSIVE DESIGN (MOBILE & TABLETS)
+   ========================================================================== */
+@media (max-width: 768px) {
+  .hud-top-bar {
+    top: 10px;
+    left: 10px;
+    right: 10px;
+  }
+  .hud-brand {
+    padding: 6px 12px;
+  }
+  .hud-brand-title {
+    font-size: 0.85rem;
+  }
+  .hud-brand-badge {
+    display: none;
+  }
+  .hud-music-player {
+    padding: 5px 10px;
+    gap: 8px;
+  }
+  .music-info {
+    display: none;
+  }
+  .volume-slider-wrapper {
+    display: none;
+  }
+  .hud-bottom-dock {
+    bottom: 12px;
+    padding: 6px 12px;
+    gap: 5px;
+    border-radius: 40px;
+  }
+  .dock-btn {
+    padding: 8px 12px;
+    font-size: 0.8rem;
+    gap: 5px;
+  }
+  .memory-card-modal {
+    padding: 20px 16px;
+    border-radius: 22px;
+  }
+  .modal-footer {
+    justify-content: center;
+  }
+  .btn-styled-back {
+    width: 100%;
+  }
+}
